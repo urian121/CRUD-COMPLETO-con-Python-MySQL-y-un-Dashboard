@@ -12,16 +12,9 @@ def connectionBD():
             host="localhost",
             user="root",
             passwd="",
-            database="bd_consignaciones",
-
-            # host="localhost",
-            # user="root",
-            # passwd="Pass23.-.*",
-            # database="bd_consignaciones",
-
-            # auth_plugin='mysql_native_password',
-            # charset='utf8mb4',
-            # collation='utf8mb4_unicode_ci'
+            database="crud_python",
+            charset='utf8mb4',
+            collation='utf8mb4_unicode_ci',
             raise_on_warnings=True
 
         )

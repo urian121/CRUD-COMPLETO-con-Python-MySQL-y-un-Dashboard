@@ -45,20 +45,6 @@ def recibeInsertRegisterUser(name_surname, email_user, pass_user):
     return resultado_insert
 
 
-def totalConsigNoLeidas():
-    conexion_MySQLdb = connectionBD()  # Hago instancia a mi conexion desde la funcion
-    mycursor = conexion_MySQLdb.cursor(dictionary=True)
-
-    querySQL = (
-        "SELECT * FROM consignaciones WHERE estatus_leido =0 AND bandeja= 0 AND status_consignacion_ignorada=0 ")
-    mycursor.execute(querySQL)
-    data = mycursor.fetchall()
-    total = len(data)
-    mycursor.close()  # cerrando conexion SQL
-    conexion_MySQLdb.close()  # cerrando conexion de la BD
-    return (total)
-
-
 def info_perfil_session():
     try:
         with connectionBD() as conexion_MySQLdb:
@@ -142,18 +128,6 @@ def updatePefilSinPass(id_user, name_surname):
         print(
             f"Ocurrió un error en la funcion updatePefilSinPass: {e}")
         return []
-
-
-def yearConsignacioneDesdeLogin():
-    conexion_MySQLdb = connectionBD()  # Hago instancia a mi conexion desde la funcion
-    mycursor = conexion_MySQLdb.cursor(dictionary=True)
-    querySQL = (
-        "SELECT DISTINCT YEAR(dia_de_la_venta) anio FROM consignaciones")
-    mycursor.execute(querySQL)
-    listaYearConsignaciones = mycursor.fetchall()
-    mycursor.close()  # cerrrando conexion SQL
-    conexion_MySQLdb.close()  # cerrando conexion de la BD
-    return listaYearConsignaciones
 
 
 def dataLoginSesion():

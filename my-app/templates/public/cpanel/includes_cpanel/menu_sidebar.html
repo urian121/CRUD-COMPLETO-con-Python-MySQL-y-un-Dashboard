@@ -3,7 +3,7 @@
     <a href="{{ url_for('cpanelListConsignaciones') }}" class="app-brand-link">
       <span class="app-brand-logo demo">
         <img
-          src="{{ url_for('static', filename ='assets/img/logo.jpg') }}"
+          src="{{ url_for('static', filename ='assets/img/logo.png') }}"
           alt="Logo" />
       </span>
     </a>
@@ -20,9 +20,9 @@
     <li
       class="menu-item {% if request.path == '/consignaciones' %} active {% elif request.path == '/consignaciones-recibidas' %} active {% elif request.args.get('from') == 'bandeja_entrada' %} active {% else %}{% endif %}">
       <a href="{{ url_for('cpanelListConsignaciones') }}" class="menu-link">
-        <i class="menu-icon bi bi-envelope-fill"></i>
+        <i class="menu-icon bi bi-person-bounding-box"></i>
         <div data-i18n="Basic">
-          Consignaciones Recibidas
+          Registrar Empleado
           <span class="badge badge-center rounded-pill bg-label-danger">
             {{ totalConsigSinLeer }}
           </span>
@@ -31,20 +31,9 @@
     </li>
     <li
       class="menu-item {% if request.path == '/consignaciones-procesadas' %} active {% elif request.args.get('from') == 'bandeja_leidos' %} active {% endif %}">
-      <a
-        href="{{ url_for('cpanelListConsignacionesLeidas') }}"
-        class="menu-link">
-        <i class="menu-icon bi bi-envelope-check"></i>
-        <div data-i18n="Boxicons">Consignaciones Procesadas</div>
-      </a>
-    </li>
-    <li
-      class="menu-item {% if request.path == '/resumen-consignaciones-diarias' %} active {% elif request.args.get('from') == 'bandeja_resumen_consignaciones' %} active {% endif %}">
-      <a
-        href="{{ url_for('cpanelListResumenConsignaciones') }}"
-        class="menu-link">
-        <i class="menu-icon bi bi-activity"></i>
-        <div data-i18n="Boxicons">Consignaciones Diarias</div>
+      <a href="" class="menu-link">
+        <i class="menu-icon bi bi-person-lines-fill"></i>
+        <div data-i18n="Boxicons">Lista de Empleados</div>
       </a>
     </li>
     <li
@@ -52,13 +41,6 @@
       <a href="/mi-perfil" class="menu-link">
         <i class="menu-icon bi bi-person-fill-gear"></i>
         <div data-i18n="Tables">Mi Perfil</div>
-      </a>
-    </li>
-    <li
-      class="menu-item {% if request.path == '/agregar-vpn-tienda' %} active {% endif %}">
-      <a href="/agregar-vpn-tienda" class="menu-link">
-        <i class="menu-icon bi bi-pc-display-horizontal"></i>
-        <div data-i18n="Tables">Agregar VPN</div>
       </a>
     </li>
     <li class="menu-item">

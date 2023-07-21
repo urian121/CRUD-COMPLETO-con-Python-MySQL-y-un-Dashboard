@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, flash, redirect, url_for, jsonify
+from flask import render_template, request, flash, redirect, url_for, jsonify, session
 
 import os
 from mysql.connector.errors import Error

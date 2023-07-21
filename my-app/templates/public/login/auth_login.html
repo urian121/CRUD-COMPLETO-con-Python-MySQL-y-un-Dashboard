@@ -7,10 +7,11 @@
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <a href="index.html" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">
+              <span class="app-brand-logo">
                 <img
+                  class="logo"
                   style="display: flex"
-                  src="{{ url_for('static', filename ='./assets/img/logo.jpg') }}"
+                  src="{{ url_for('static', filename ='./assets/img/logo.png') }}"
                   alt="Logo" />
               </span>
             </a>
@@ -34,11 +35,10 @@
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Clave</label>
-                <!---
                 <a href="{{ url_for('cpanelRecoveryPassUser') }}">
                   <small>Olvidó su Clave?</small>
                 </a>
-              --></div>
+              </div>
               <div class="input-group input-group-merge">
                 <input
                   type="password"
@@ -61,11 +61,10 @@
           </form>
 
           <p class="text-center">
-            <!----
             <a href="./register-user">
               <span>Crear mi cuenta</span>
             </a>
-          --></p>
+          </p>
         </div>
       </div>
     </div>

@@ -10,14 +10,6 @@ from funciones.funciones_tienda import *
 PATH_URL_TIENDA = "public/tienda"
 
 
-@app.route('/', methods=['GET'])
-def inicio():
-    if INFO_TIENDA_API_BIGDATA():
-        return render_template(f'{PATH_URL_TIENDA}/base_tienda.html', informacion_tienda=INFO_TIENDA_API_BIGDATA(), lista_consignaciones=listaConsignacionesPorTienda() or [])
-    else:
-        return render_template('public/NotFound/tienda_no_sincronizada.html')
-
-
 @app.route('/procesar-consignacion-diaria', methods=['POST'])
 def procesarFormConsignacionDiaria():
     # print(f"Data request: {request.form}")
@@ -57,25 +49,6 @@ def procesarFormConsignacionDiaria():
             return jsonify({'status_server': 0, 'mensaje': 'El archivo supera el peso establecido, recuerda maximo 2 MB', 'status_mensaje': 'error'})
     else:
         return jsonify({'status_server': 0, 'mensaje': 'Debe cargar un archivo', 'status_mensaje': 'error'})
-
-
-# Deetalles de una consignación
-@app.route('/details-consignment/<string:idConsignacion>', methods=['GET'])
-def viewDetallesConsignacion(idConsignacion):
-    if request.method == 'GET':
-        resultData = detallesConsignaciones(idConsignacion)
-        # Mostrando si esta consignacion es mas de 1 dia
-        consignacionGrupales = (
-            listaConsignacionesGrupales(idConsignacion) or [])
-
-        if resultData:
-            return render_template(f'{PATH_URL_TIENDA}/detalles_consignacion.html', infoDetalles=resultData, consignacionGrupales=consignacionGrupales, informacion_tienda=INFO_TIENDA_API_BIGDATA())
-        else:
-            flash('No existe la consignación', 'error')
-            return redirect(url_for('inicio'))
-    else:
-        flash('Método HTTP incorrecto', 'error')
-        return redirect(url_for('inicio'))
 
 
 # Formulario para un solo pago

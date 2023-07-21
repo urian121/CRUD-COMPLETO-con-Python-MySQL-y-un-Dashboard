@@ -8,10 +8,10 @@ cuenta{% endblock %} {% block body %}
         <div class="card-body">
           <div class="app-brand justify-content-center">
             <a href="../" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">
+              <span class="app-brand-logo">
                 <img
-                  style="display: flex"
-                  src="{{ url_for('static', filename ='assets/img/logo.jpg') }}"
+                  class="logo"
+                  src="{{ url_for('static', filename ='assets/img/logo.png') }}"
                   alt="Logo" />
               </span>
             </a>
@@ -22,18 +22,23 @@ cuenta{% endblock %} {% block body %}
             action="{{ url_for('cpanelResgisterUserBD') }}"
             method="POST">
             <div class="mb-3">
-              <label for="name_surname" class="form-label"
-                >Nombre y apellido</label
-              >
+              <label for="name_surname" class="form-label">
+                Nombre y apellido
+              </label>
               <input
                 type="text"
                 class="form-control"
                 name="name_surname"
+                required
                 autofocus />
             </div>
             <div class="mb-3">
               <label for="email_user" class="form-label">Email</label>
-              <input type="email" class="form-control" name="email_user" />
+              <input
+                type="email"
+                class="form-control"
+                name="email_user"
+                required />
             </div>
             <div class="mb-3 form-password-toggle">
               <label class="form-label" for="pass_user">Clave</label>
@@ -44,10 +49,11 @@ cuenta{% endblock %} {% block body %}
                   name="pass_user"
                   id="pass_user"
                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                  aria-describedby="password" />
-                <span class="input-group-text cursor-pointer"
-                  ><i class="bx bx-hide"></i
-                ></span>
+                  aria-describedby="password"
+                  required />
+                <span class="input-group-text cursor-pointer">
+                  <i class="bx bx-hide"></i>
+                </span>
               </div>
             </div>
             <button class="btn btn-primary d-grid w-100">Crear cuenta</button>

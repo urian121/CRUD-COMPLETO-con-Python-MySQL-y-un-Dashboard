@@ -8,7 +8,6 @@ from werkzeug.utils import secure_filename
 import uuid  # Modulo de python para crear un string
 
 from conexion.conexionBD import connectionBD
-from conexion.conn_server import connBigData  # Conexion al servidor externo
 
 
 # Funcion que retorna la validacion del peso del archivo
@@ -187,90 +186,6 @@ def totalConsigNoLeidas():
 
     except Exception as e:
         print(f"Ocurrió un error, consignación no encontrada: {e}")
-        return []
-
-
-# Lista de consignaciones
-def listaConsignacionesPorTienda():
-    try:
-        with connectionBD() as conexion_MySQLdb:
-            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
-                result_info_code = INFO_TIENDA_API_BIGDATA()
-
-                ip_vpn_tienda = get_ip_address()
-                if ip_vpn_tienda == "192.168.2.18":  # Don Jorge
-                    ip_vpn_tienda = "10.0.8.152"
-                if ip_vpn_tienda == "192.168.2.89":  # Urian
-                    ip_vpn_tienda = "10.0.8.38"
-                if ip_vpn_tienda == "127.0.0.1":  # Urian Local
-                    ip_vpn_tienda = "10.0.8.159"
-                if ip_vpn_tienda == "192.168.2.19":  # Deivis
-                    ip_vpn_tienda = "10.0.8.145"
-
-                querySQL = """
-                    SELECT 
-                        c.id, c.estatus_leido,
-                        c.nombre_tienda,
-                        d.fecha_consignacion_banco,
-                        SUM(d.valor_venta) AS total_valor_venta
-                    FROM consignaciones AS c
-                    INNER JOIN detalles_consignaciones AS d
-                        ON c.id = d.id_consignacion
-                    WHERE c.code_tienda = %s
-                    AND c.status_consignacion_ignorada=%s
-                    GROUP BY c.id, c.estatus_leido, c.nombre_tienda, d.fecha_consignacion_banco
-                    ORDER BY c.id DESC
-                    LIMIT 120
-                """
-                params = (result_info_code[0], 0)
-                # print("Consulta SQL:", querySQL)
-                # print("Parámetros:", params)
-                cursor.execute(querySQL, params)
-                listaConsignaciones = cursor.fetchall()
-        return listaConsignaciones or []
-
-    except Exception as e:
-        print(f"Ocurrió un error al lista las consignacion por tienda: {e}")
-        return {}
-
-
-# Informacion tienda
-def INFO_TIENDA_API_BIGDATA():
-    try:
-        conexion_SQL_Server = connBigData()
-        if conexion_SQL_Server:
-            with conexion_SQL_Server.cursor() as mycursor:
-
-                ip_vpn_tienda = get_ip_address()
-                if ip_vpn_tienda == "192.168.2.18":  # Don Jorge
-                    ip_vpn_tienda = "10.0.8.152"
-                if ip_vpn_tienda == "192.168.2.89":  # Urian
-                    ip_vpn_tienda = "10.0.8.38"
-                if ip_vpn_tienda == "127.0.0.1":  # Urian Local
-                    ip_vpn_tienda = "10.0.8.159"
-                if ip_vpn_tienda == "192.168.2.19":  # Deivis
-                    ip_vpn_tienda = "10.0.8.145"
-
-                querySQL = f"""
-                    SELECT 
-                        distinct
-                        V.CodigoTienda,
-                        T.Descripcion descripcion_tienda,
-                        V.VPN
-                    FROM BD_Administracion_FE.dbo.tbVPNTiendas V
-                    INNER JOIN BD_BODEGAOLAP.dbo.tbDimTiendas T ON T.dimid_tienda = V.dimid_tienda
-                    WHERE T.Activa=1
-                    AND V.VPN='{ip_vpn_tienda}'
-                    """
-                mycursor.execute(querySQL, )
-                result = mycursor.fetchone()
-                return result or []
-        else:
-            print("No se encontro la Tienda.")
-            return []
-    except Exception as e:
-        print(
-            f"Error en consulta, tienda no encontrada: {e}")
         return []
 
 

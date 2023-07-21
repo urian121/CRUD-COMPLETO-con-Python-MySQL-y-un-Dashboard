@@ -1,18 +1,18 @@
 
-from flask import render_template, request, flash, redirect, url_for
 from app import app
+from flask import render_template, request, flash, redirect, url_for, session
 
-
+# Importando mi conexión a BD
 from conexion.conexionBD import connectionBD
 
 # Para encriptar contraseña generate_password_hash
 from werkzeug.security import check_password_hash
 
-# Importando funciones para el modulo de login
-from funciones.funciones_login import *
+# Importando controllers para el modulo de login
+from controllers.funciones_login import *
 
 
-@app.route('/admin', methods=['GET'])
+@app.route('/', methods=['GET'])
 def inicioCpanel():
     if 'conectado' in session:
         return render_template('public/cpanel/base_cpanel.html', dataLogin=dataLoginSesion())
@@ -24,7 +24,7 @@ def inicioCpanel():
 def perfil():
     if 'conectado' in session:
         print('aqui')
-        return render_template('public/cpanel/perfil/perfil.html', info_perfil_session=info_perfil_session(), totalConsigSinLeer=totalConsigNoLeidas())
+        return render_template('public/cpanel/perfil/perfil.html', info_perfil_session=info_perfil_session())
     else:
         return render_template('public/login/base_login.html')
 
@@ -33,7 +33,7 @@ def perfil():
 @app.route('/register-user', methods=['GET'])
 def cpanelRegisterUser():
     if 'conectado' in session:
-        return redirect(url_for('cpanelListConsignaciones'))
+        return redirect(url_for('inicioCpanel'))
     else:
         return render_template('public/login/auth_register.html')
 
@@ -42,7 +42,7 @@ def cpanelRegisterUser():
 @app.route('/recovery-password', methods=['GET'])
 def cpanelRecoveryPassUser():
     if 'conectado' in session:
-        return redirect(url_for('cpanelListConsignaciones'))
+        return redirect(url_for('inicioCpanel'))
     else:
         return render_template('public/login/auth_forgot_password.html')
 
@@ -77,7 +77,7 @@ def actualizarPerfil():
         print(respuesta)
         if respuesta == 1:
             flash('Los datos fuerón actualizados correctamente.', 'success')
-            return redirect(url_for('cpanelListConsignaciones'))
+            return redirect(url_for('inicioCpanel'))
         elif respuesta == 0:
             flash('La contraseña actual esta incorrecta, por favor verifique.', 'error')
             return redirect(url_for('perfil'))
@@ -93,10 +93,10 @@ def actualizarPerfil():
 
 
 # Validar sesión
-@app.route('/consignaciones', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def loginCliente():
     if 'conectado' in session:
-        return redirect(url_for('cpanelListConsignaciones'))
+        return redirect(url_for('inicioCpanel'))
     else:
         if request.method == 'POST' and 'email_user' in request.form and 'pass_user' in request.form:
 
@@ -119,7 +119,7 @@ def loginCliente():
                     session['email_user'] = account['email_user']
 
                     flash('la sesión fue correcta.', 'success')
-                    return redirect(url_for('cpanelListConsignaciones'))
+                    return redirect(url_for('inicioCpanel'))
                 else:
                     # La cuenta no existe o el nombre de usuario/contraseña es incorrecto
                     flash('datos incorrectos por favor revise.', 'error')
