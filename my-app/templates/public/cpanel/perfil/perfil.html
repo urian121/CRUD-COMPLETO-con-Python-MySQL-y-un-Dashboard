@@ -1,0 +1,96 @@
+{% extends 'public/cpanel/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Dugotex | Perfil{% endblock %}
+<!--Inicio del block-->
+{% block body %}
+<div class="card" style="border-radius: 0px !important">
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-12">
+      <h3 class="text-center mt-5 mb-3">MI PERFIL</h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-6">
+      <form
+        class="form-horizontal mx-auto"
+        method="POST"
+        action="/actualizar-datos-perfil">
+        <div class="card-body">
+          <div class="mb-3">
+            <label for="name_surname" class="form-label">Usuario</label>
+            <input
+              type="text"
+              name="name_surname"
+              value="{{ info_perfil_session[0]['name_surname'] }}"
+              class="form-control"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="email_user" class="form-label">Email</label>
+            <input
+              class="form-control"
+              type="email"
+              name="email_user"
+              value="{{ info_perfil_session[0]['email_user'] }}"
+              readonly />
+          </div>
+          <div class="mb-3 form-password-toggle">
+            <label class="form-label" for="pass_actual">Clave Actual</label>
+            <div class="input-group input-group-merge">
+              <input
+                type="password"
+                class="form-control"
+                name="pass_actual"
+                id="pass_actual"
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                aria-describedby="password" />
+              <span class="input-group-text cursor-pointer">
+                <i class="bx bx-hide"></i>
+              </span>
+            </div>
+          </div>
+          <div class="mb-3 form-password-toggle">
+            <label class="form-label" for="new_pass_user">Nueva Clave</label>
+            <div class="input-group input-group-merge">
+              <input
+                type="password"
+                class="form-control"
+                name="new_pass_user"
+                id="new_pass_user"
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                aria-describedby="password" />
+              <span class="input-group-text cursor-pointer">
+                <i class="bx bx-hide"></i>
+              </span>
+            </div>
+          </div>
+          <div class="mb-3 form-password-toggle">
+            <label class="form-label" for="repetir_pass_user">
+              Repetir Nueva Clave
+            </label>
+            <div class="input-group input-group-merge">
+              <input
+                type="password"
+                class="form-control"
+                name="repetir_pass_user"
+                id="repetir_pass_user"
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                aria-describedby="password" />
+              <span class="input-group-text cursor-pointer">
+                <i class="bx bx-hide"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3 text-center">
+          <button type="submit" class="btn rounded-pill btn-primary">
+            Actualizar mis datos
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

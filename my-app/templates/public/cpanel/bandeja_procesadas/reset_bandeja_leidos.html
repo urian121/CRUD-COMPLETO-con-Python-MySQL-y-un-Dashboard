@@ -1,0 +1,32 @@
+{% if resultFiltro|length > 0 %}
+<!--Recorriendo consignaciones-->
+{% for consignaciones in resultFiltro %}
+<tr
+  data-bs-toggle="tooltip"
+  data-bs-offset="0,4"
+  data-bs-placement="top"
+  data-bs-html="true"
+  title="<span>Leer consignación</span>"
+  style="color: #333 !important"
+  id="filaIdConsignacion_{{ consignaciones.id }}"
+  data-id="{{ consignaciones.id }}"
+  class="{% if(consignaciones.estatus_leido == 0) %}noLeido{% else %}{% endif %}">
+  <td>
+    <i class="bi bi-star-fill"></i>
+    {{ consignaciones.nombre_tienda }}
+  </td>
+  <td>
+    {{ ' '.join(consignaciones.nota_consignacion.split()[:10]) + " ..." if
+    consignaciones.nota_consignacion else "Sin nota" }}
+  </td>
+  <td class="text-center">{{ consignaciones.fecha_consignacion_banco }}</td>
+  <td class="text-center">{{ consignaciones.dia_de_la_ventaBD}}</td>
+</tr>
+{% endfor %}
+
+<!--No hay resultados-->
+{% else %}
+<tr>
+  <td colspan="4">No hay resultados</td>
+</tr>
+{% endif %}

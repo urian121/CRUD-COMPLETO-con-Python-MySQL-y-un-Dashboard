@@ -1,0 +1,172 @@
+{% extends 'public/cpanel/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Dugotex | Consignaciones leidas{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" />
+{% endblock %}
+<!--Inicio del block-->
+{% block body %}
+<!--Para verificar si una variable existe y tiene una longitud mayor que cero en Jinja2-->
+{% if consignacionesLeidasTiendaCpanel.consignacionesLeidasBD is defined and
+consignacionesLeidasTiendaCpanel.consignacionesLeidasBD|length > 0 %}
+
+<div class="card" style="border-radius: 0px !important">
+  <div class="container mt-3 mb-3" style="width: 100% !important">
+    <div class="row justify-content-md-center mb-2">
+      <div class="col-6"></div>
+      <div class="col-2">
+        <label for="filtroPorYear" class="form-label"> Año </label>
+        <select
+          id="filtroPorYear"
+          name="filtroPorYear"
+          onchange="filtraConsigLeidasPorYear()"
+          class="form-select">
+          {% for year in consignacionesLeidasTiendaCpanel.yearConsignaciones %}
+          <option value="{{ year.anio }}">{{ year.anio }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-2">
+        <label for="defaultSelect" class="form-label">Mes</label>
+        <select
+          id="filtroPorMes"
+          name="filtroPorMes"
+          onchange="filtraConsigLeidasPorMes(this.value)"
+          class="form-select">
+          <option value="0">Seleccione</option>
+          <option value="01">Enero</option>
+          <option value="02">Febrero</option>
+          <option value="03">Marzo</option>
+          <option value="04">Abril</option>
+          <option value="05">Mayo</option>
+          <option value="06">Junio</option>
+          <option value="07">Julio</option>
+          <option value="08">Agosto</option>
+          <option value="09">Septiembre</option>
+          <option value="10">Octubre</option>
+          <option value="11">Noviembre</option>
+          <option value="12">Diciembre</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <span>
+          <label for="fechConsignacion" class="form-label"> Fecha Venta </label>
+          <a id="borrar_filtro_fecha_bandeja_leidos" href="#">
+            <i
+              data-bs-toggle="tooltip"
+              data-bs-offset="0,4"
+              data-bs-placement="top"
+              data-bs-html="true"
+              title="<span>Borrar filtro</span>"
+              class="bi bi-trash3"
+              style="font-size: 18px; display: none"></i>
+          </a>
+          <input
+            style="
+              line-height: 25px !important;
+              border: none !important;
+              color: #444;
+            "
+            type="text"
+            name="dia_de_la_venta"
+            id="filtro_resumen_consg_datepicker"
+            readonly
+            class="form-control" />
+        </span>
+      </div>
+    </div>
+    <hr />
+  </div>
+
+  <div class="table-responsive text-nowrap">
+    <table
+      class="table table-borderless table-hover"
+      id="tabla-consignaciones-leidas">
+      <thead>
+        <tr style="background-color: #ddd">
+          <th>Tienda</th>
+          <th>Nota</th>
+          <th class="text-center">Fecha consignación banco</th>
+          <th class="text-center">Fecha día de la venta</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for consignaciones in
+        consignacionesLeidasTiendaCpanel.consignacionesLeidasBD %}
+        <tr
+          data-bs-toggle="tooltip"
+          data-bs-offset="0,4"
+          data-bs-placement="top"
+          data-bs-html="true"
+          title="<span>Leer consignación</span>"
+          style="color: #333 !important"
+          data-id="{{ consignaciones.id }}">
+          <td>
+            <!--
+              {{ loop.revindex }}
+              {{ loop.index }}
+            -->
+            <i class="bi bi-star-fill"></i>
+            {{ consignaciones.nombre_tienda }}
+          </td>
+          <td>
+            {{ ' '.join(consignaciones.nota_consignacion.split()[:10]) + " ..."
+            if consignaciones.nota_consignacion else "Sin nota" }}
+          </td>
+          <td class="text-center">
+            {{ consignaciones.fecha_consignacion_banco}}
+          </td>
+          <td class="text-center">{{ consignaciones.dia_de_la_ventaBD}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row justify-content-md-center mt-5 mb-4">
+    <div class="col-md-auto">
+      <button
+        type="button"
+        class="btn rounded-pill btn-primary btnCargarMasConsigLeidas"
+        onclick="cargarMasConsignacionesLeidas()">
+        Cargar más consignaciones leidas
+      </button>
+    </div>
+  </div>
+</div>
+{% else %}
+
+<div class="container mt-3 mb-3" style="width: 100% !important">
+  <div class="row justify-content-md-center mb-2">
+    <div class="col-12">
+      <h2 class="text-center">No existe la consignación 😭</h2>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+<!--Fin del Block-->
+{% endblock %}
+
+<!--Script Custom-->
+{% block customJS %}
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/messages/messages.es-es.js"></script>
+
+<script src="{{ url_for('static', filename ='js/filter_consig_leidas.js') }}"></script>
+<script>
+  /*
+  // Obtener el mes actual en formato de dos dígitos (por ejemplo, "01" para enero)
+  const mesActual = new Date().toLocaleString("es-ES", { month: "2-digit" });
+  // Obtener el elemento option correspondiente al mes actual
+  const optionMesActual = document.querySelector(
+    `#filtroPorMes option[value="${mesActual}"]`
+  );
+  // Establecer el atributo "selected" en "true" en el elemento option del mes actual
+  optionMesActual ? (optionMesActual.selected = true) : "";
+*/
+</script>
+{% endblock %}

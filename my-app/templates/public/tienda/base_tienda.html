@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  class="light-style"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="./assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Dugotex - Controlefectivo</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', filename ='assets/img/favicon/favicon.webp') }}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+
+    <!-- Core CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename ='assets/vendor/css/core.css') }}"
+      class="template-customizer-core-css" />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename ='assets/css/demo.css') }}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename ='assets/css/my_style.css') }}" />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename ='assets/css/bootstrap.min.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename ='assets/css/notification.css') }}"
+      class="template-customizer-core-css" />
+    <style>
+      .navbar.bg-light {
+        color: #222 !important;
+      }
+      #preview {
+        width: 100%;
+        max-width: 350px;
+      }
+      select.input-sm {
+        line-height: 20px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader-out">
+      <div id="loader-container">
+        <p id="loading-text">Cargando</p>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" id="logo" href="/" style="padding: 6px 15px">
+        <img
+          style="display: flex"
+          src="{{ url_for('static', filename ='assets/img/logo.jpg') }}"
+          alt="Logo" />
+      </a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto" style="float: right">
+          <li class="nav-item">
+            <strong>{{ informacion_tienda[1] }} </strong>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content-wrapper mb-5" style="width: 90%; margin: 0 auto">
+      <div class="container-xxl flex-grow-1" style="max-width: 100% !important">
+        {% include 'public/tienda/messages.html' %}
+        <!----->
+        {% block body %}
+        <div class="row justify-content-md-center">
+          <div class="col-md-8">
+            <div class="card mb-4" style="background-color: #ececec !important">
+              <h2 class="card-header text-center">
+                FORMULARIO PARA ENVIAR CONSIGNACIÓN
+                <hr />
+              </h2>
+              {% include 'public/tienda/form_pago_diario.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrapper mb-5" style="width: 100%; margin: 0 auto">
+      <div class="container-xxl flex-grow-1" style="max-width: 100% !important">
+        <div
+          class="row justify-content-md-center"
+          style="background-color: #f4f8fe">
+          <div class="col-md-7 mt-4 mb-4">
+            <!--condition-->
+            {% if (lista_consignaciones) %}
+            <!--Include-->
+            {% include 'public/tienda/lista_consignaciones_tienda.html' %}
+            <!---->
+            {% else %}
+            <h3 class="text-center">No hay consignaciones</h3>
+            {% endif %}
+          </div>
+        </div>
+        <!--fin del bloque-->
+        {% endblock %}
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename ='assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename ='assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename ='assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename ='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ url_for('static', filename ='assets/vendor/js/menu.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/messages/messages.es-es.js"></script>
+
+    <script src="{{ url_for('static', filename ='js/my_script.js') }}"></script>
+    <script src="{{ url_for('static', filename ='js/procesar_consignacion.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+    <!--Agregando Axios-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+      integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#tbl_consignaciones").DataTable({
+          language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json",
+          },
+          paging: true,
+          autoWidth: true,
+          buttons: [],
+        });
+      });
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+  </body>
+</html>

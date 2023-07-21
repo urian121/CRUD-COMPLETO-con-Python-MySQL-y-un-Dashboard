@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    {% include 'public/cpanel/includes_cpanel/head.html' %}
+    <!---->
+    {% block customCSS %} {% endblock %}
+  </head>
+  <body>
+    {% include 'public/cpanel/includes_cpanel/pre_loader.html' %}
+    <!---->
+    {% include 'public/cpanel/includes_cpanel/navbar.html' %}
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        {% include 'public/cpanel/includes_cpanel/menu_sidebar.html' %}
+        <div class="layout-page">
+          <div class="content-wrapper">
+            <div class="container-xxl flex-grow-1 container-p-y">
+              {% include 'public/cpanel/includes_cpanel/message_cpanel.html' %}
+              {% block body %}
+              <!--fin del bloque-->
+              {% endblock %}
+            </div>
+
+            <div class="content-backdrop fade"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+
+    {% include 'public/cpanel/includes_cpanel/js.html' %}
+    <!--Custom JS-->
+    {% block customJS %} {% endblock %}
+    <!-- fin de mi custom JS-->
+  </body>
+</html>

@@ -1,0 +1,70 @@
+{% extends 'public/login/base_login.html' %} {% block title %}Dugotex | crear
+cuenta{% endblock %} {% block body %}
+
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">
+      <div class="card">
+        <div class="card-body">
+          <div class="app-brand justify-content-center">
+            <a href="../" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">
+                <img
+                  style="display: flex"
+                  src="{{ url_for('static', filename ='assets/img/logo.jpg') }}"
+                  alt="Logo" />
+              </span>
+            </a>
+          </div>
+
+          <form
+            class="mb-3"
+            action="{{ url_for('cpanelResgisterUserBD') }}"
+            method="POST">
+            <div class="mb-3">
+              <label for="name_surname" class="form-label"
+                >Nombre y apellido</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="name_surname"
+                autofocus />
+            </div>
+            <div class="mb-3">
+              <label for="email_user" class="form-label">Email</label>
+              <input type="email" class="form-control" name="email_user" />
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <label class="form-label" for="pass_user">Clave</label>
+              <div class="input-group input-group-merge">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="pass_user"
+                  id="pass_user"
+                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                  aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"
+                  ><i class="bx bx-hide"></i
+                ></span>
+              </div>
+            </div>
+            <button class="btn btn-primary d-grid w-100">Crear cuenta</button>
+          </form>
+
+          <div class="text-center">
+            <a
+              href="{{ url_for('inicioCpanel') }}"
+              class="d-flex align-items-center justify-content-center">
+              <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+              volver
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,231 @@
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.gj-datepicker-bootstrap [role="right-icon"] button {
+  border: none !important;
+}
+.bi-check-all {
+  font-size: 20px;
+}
+
+/*Inicio del loader */
+#loader-out {
+  background-color: #cecece;
+  opacity: 0.5;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000000;
+}
+
+#loader-container {
+  width: 150px;
+  height: 150px;
+  color: white;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid #cecece;
+  border-radius: 50%;
+  -webkit-animation: borderScale 1s infinite ease-in-out;
+  animation: borderScale 1s infinite ease-in-out;
+}
+
+#loading-text {
+  color: #222;
+  font-size: 1.5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+@-webkit-keyframes borderScale {
+  0% {
+    border: 5px solid white;
+  }
+  50% {
+    border: 25px solid #08b324;
+  }
+  100% {
+    border: 5px solid white;
+  }
+}
+
+@keyframes borderScale {
+  0% {
+    border: 5px solid white;
+  }
+  50% {
+    border: 25px solid #08b324;
+  }
+  100% {
+    border: 5px solid white;
+  }
+}
+/*Fin del loader*/
+
+.bi-arrow-left-circle:hover {
+  color: #222;
+}
+
+.font_sise_17 {
+  font-size: 17px;
+}
+
+.menu-vertical .app-brand {
+  padding-left: 15px !important;
+}
+
+.btnMovil {
+  display: flex;
+  justify-content: flex-end;
+  text-align: end;
+  background-color: #fff;
+}
+
+.bx-menu {
+  background-color: #08b324 !important;
+  color: #fff;
+  padding: 10px 10px;
+  border-radius: 50%;
+}
+
+.menu-vertical,
+.menu-vertical .menu-block,
+.menu-vertical .menu-inner > .menu-item,
+.menu-vertical .menu-inner > .menu-header {
+  width: 20.25rem !important;
+}
+
+.noLeido {
+  color: #272e37;
+  font-weight: 600;
+}
+
+tbody tr {
+  border-bottom: 1px solid #eee !important;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+}
+.checkedTodos:hover {
+  cursor: pointer;
+}
+
+.form-check-input[disabled] ~ .form-check-label,
+.form-check-input:disabled ~ .form-check-label {
+  opacity: initial !important;
+}
+
+.borderCheckbox {
+  cursor: pointer;
+  border-color: #08b324;
+  box-shadow: 0 2px 4px 0 rgba(10, 207, 10, 0.4);
+}
+.pagination {
+  justify-content: center;
+}
+
+/*Loader para precarga en botn cargar mas consignaciones*/
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000000;
+  background-color: #cecece;
+  opacity: 0.5;
+}
+
+.pesos {
+  background-color: #08b324;
+  color: #fff;
+  padding: 2px;
+  border-radius: 10%;
+  margin-right: 10px;
+}
+
+.colorTheadTrTh {
+  color: #fff !important;
+}
+
+.input_vacio {
+  border-color: #dc3545 !important;
+}
+.input_lleno {
+  border-color: #198754 !important;
+}
+
+.menu-vertical .menu-inner > .menu-item .menu-link {
+  margin: 0 !important;
+}
+.menu-vertical,
+.menu-vertical .menu-block,
+.menu-vertical .menu-inner > .menu-item,
+.menu-vertical .menu-inner > .menu-header {
+  width: 17.25rem !important;
+}
+
+@media (min-width: 1400px) {
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 95% !important;
+  }
+}
+
+.menu-vertical .menu-item.active:not(.open) > .menu-link {
+  font-size: 14px !important;
+}
+
+.alert-success {
+  background-color: #48c808 !important;
+  color: #fff !important;
+}
+
+.mayuscula {
+  text-transform: uppercase !important;
+}
+.btn-primary {
+  background-color: #09c046 !important;
+  border: none !important;
+}
+.btn-close {
+  width: auto !important;
+  height: auto !important;
+}
+.bi-x {
+  color: #222 !important;
+}
+
+.form-check-input {
+  width: 1.8em !important;
+  height: 1.9em !important;
+}
+
+.difference {
+  padding: 5px 10px;
+  font-size: 15px;
+  color: #222;
+}
+.bi-star-fill {
+  padding: 0px 10px 0px 0px;
+}
+
+#informe_general:hover {
+  cursor: pointer;
+  border-bottom: dotted 1px #08b324;
+}

@@ -1,0 +1,71 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="{{ url_for('cpanelListConsignaciones') }}" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <img
+          src="{{ url_for('static', filename ='assets/img/logo.jpg') }}"
+          alt="Logo" />
+      </span>
+    </a>
+
+    <a
+      href="javascript:void(0);"
+      class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+  <ul class="menu-inner py-5">
+    <li
+      class="menu-item {% if request.path == '/consignaciones' %} active {% elif request.path == '/consignaciones-recibidas' %} active {% elif request.args.get('from') == 'bandeja_entrada' %} active {% else %}{% endif %}">
+      <a href="{{ url_for('cpanelListConsignaciones') }}" class="menu-link">
+        <i class="menu-icon bi bi-envelope-fill"></i>
+        <div data-i18n="Basic">
+          Consignaciones Recibidas
+          <span class="badge badge-center rounded-pill bg-label-danger">
+            {{ totalConsigSinLeer }}
+          </span>
+        </div>
+      </a>
+    </li>
+    <li
+      class="menu-item {% if request.path == '/consignaciones-procesadas' %} active {% elif request.args.get('from') == 'bandeja_leidos' %} active {% endif %}">
+      <a
+        href="{{ url_for('cpanelListConsignacionesLeidas') }}"
+        class="menu-link">
+        <i class="menu-icon bi bi-envelope-check"></i>
+        <div data-i18n="Boxicons">Consignaciones Procesadas</div>
+      </a>
+    </li>
+    <li
+      class="menu-item {% if request.path == '/resumen-consignaciones-diarias' %} active {% elif request.args.get('from') == 'bandeja_resumen_consignaciones' %} active {% endif %}">
+      <a
+        href="{{ url_for('cpanelListResumenConsignaciones') }}"
+        class="menu-link">
+        <i class="menu-icon bi bi-activity"></i>
+        <div data-i18n="Boxicons">Consignaciones Diarias</div>
+      </a>
+    </li>
+    <li
+      class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
+      <a href="/mi-perfil" class="menu-link">
+        <i class="menu-icon bi bi-person-fill-gear"></i>
+        <div data-i18n="Tables">Mi Perfil</div>
+      </a>
+    </li>
+    <li
+      class="menu-item {% if request.path == '/agregar-vpn-tienda' %} active {% endif %}">
+      <a href="/agregar-vpn-tienda" class="menu-link">
+        <i class="menu-icon bi bi-pc-display-horizontal"></i>
+        <div data-i18n="Tables">Agregar VPN</div>
+      </a>
+    </li>
+    <li class="menu-item">
+      <a href="{{ url_for('cerraSesion') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+        <div data-i18n="Tables">Salir</div>
+      </a>
+    </li>
+  </ul>
+</aside>

@@ -1,0 +1,73 @@
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">
+      <!-- Register -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <div class="app-brand justify-content-center">
+            <a href="index.html" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">
+                <img
+                  style="display: flex"
+                  src="{{ url_for('static', filename ='./assets/img/logo.jpg') }}"
+                  alt="Logo" />
+              </span>
+            </a>
+          </div>
+
+          <form
+            id="formAuthentication"
+            class="mb-3"
+            action="{{ url_for('loginCliente') }}"
+            method="POST">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email_user"
+                placeholder="Escribe tu email"
+                autofocus
+                required />
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <div class="d-flex justify-content-between">
+                <label class="form-label" for="password">Clave</label>
+                <!---
+                <a href="{{ url_for('cpanelRecoveryPassUser') }}">
+                  <small>Olvidó su Clave?</small>
+                </a>
+              --></div>
+              <div class="input-group input-group-merge">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="pass_user"
+                  id="pass_user"
+                  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                  aria-describedby="password"
+                  required />
+                <span class="input-group-text cursor-pointer">
+                  <i class="bx bx-hide"></i>
+                </span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <button class="btn btn-primary d-grid w-100" type="submit">
+                Entrar ahora
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center">
+            <!----
+            <a href="./register-user">
+              <span>Crear mi cuenta</span>
+            </a>
+          --></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

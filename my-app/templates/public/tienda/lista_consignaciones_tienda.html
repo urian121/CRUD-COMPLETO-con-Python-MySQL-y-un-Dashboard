@@ -1,0 +1,54 @@
+<div class="table-responsive text-nowrap">
+  <table
+    table-hover
+    id="tbl_consignaciones"
+    class="table table-striped table-bordered"
+    cellspacing="0"
+    width="100%">
+    <thead>
+      <tr>
+        <th>Tienda</th>
+        <th>Valor $</th>
+        <th>Fecha consignación Banco</th>
+        <th>Estatus</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for consignaciones in lista_consignaciones %}
+      <tr>
+        <td>{{ consignaciones.nombre_tienda}}</td>
+        <td>
+          $ {{
+          '{:,.0f}'.format(consignaciones.total_valor_venta).replace(',','.')}}
+        </td>
+        <td>{{ consignaciones.fecha_consignacion_banco}}</td>
+        <td>
+          {% if(consignaciones.estatus_leido == 0) %}
+          <span>enviado</span>
+          <i class="bi bi-check2" style="font-size: 20px; color: #222"></i>
+          {% else %}
+          <span>leido</span>
+          <i class="bi bi-check-all" style="color: green"></i>
+          {% endif %}
+        </td>
+        <td>
+          <a
+            href="{{ url_for('viewDetallesConsignacion', idConsignacion = consignaciones.id ) }}"
+            title="Ver envio"
+            type="button"
+            class="btn btn-info btn-sm"
+            data-bs-toggle="tooltip"
+            data-bs-offset="0,4"
+            data-bs-placement="top"
+            data-bs-html="true"
+            title="<span>Ver detalles</span>">
+            <i class="bi bi-eye"></i>
+            Ver detalles
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
