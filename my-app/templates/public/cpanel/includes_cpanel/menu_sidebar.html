@@ -18,20 +18,15 @@
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-5">
     <li
-      class="menu-item {% if request.path == '/consignaciones' %} active {% elif request.path == '/consignaciones-recibidas' %} active {% elif request.args.get('from') == 'bandeja_entrada' %} active {% else %}{% endif %}">
-      <a href="{{ url_for('cpanelListConsignaciones') }}" class="menu-link">
+      class="menu-item {% if request.path == '/registrar-empleado' %} active {% endif %}">
+      <a href="{{ url_for('viewFormEmpleado') }}" class="menu-link">
         <i class="menu-icon bi bi-person-bounding-box"></i>
-        <div data-i18n="Basic">
-          Registrar Empleado
-          <span class="badge badge-center rounded-pill bg-label-danger">
-            {{ totalConsigSinLeer }}
-          </span>
-        </div>
+        <div data-i18n="Basic">Registrar Empleado</div>
       </a>
     </li>
     <li
       class="menu-item {% if request.path == '/consignaciones-procesadas' %} active {% elif request.args.get('from') == 'bandeja_leidos' %} active {% endif %}">
-      <a href="" class="menu-link">
+      <a href="/" class="menu-link">
         <i class="menu-icon bi bi-person-lines-fill"></i>
         <div data-i18n="Boxicons">Lista de Empleados</div>
       </a>
