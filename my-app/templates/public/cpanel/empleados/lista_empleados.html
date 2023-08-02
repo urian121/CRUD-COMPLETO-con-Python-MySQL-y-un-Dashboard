@@ -1,0 +1,67 @@
+{% extends 'public/cpanel/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud | Empleados{% endblock %}
+<!--Inicio del block-->
+{% block body %} {{ empleados}}
+
+<div class="card" style="border-radius: 0px !important">
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-12">
+      <h3 class="text-center mt-5 mb-3">LISTA DE EMPLEADOS</h3>
+      <hr />
+    </div>
+
+    <div class="row justify-content-center mb-2">
+      <div class="table-responsive text-nowrap table-hover">
+        <table
+          table-hover
+          id="tbl_consignaciones"
+          class="table table-striped table-bordered"
+          cellspacing="0"
+          width="100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Sexo</th>
+              <th>Salario</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for empleado in empleados %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ empleado.nombre_empleado }}</td>
+              <td>{{ empleado.apellido_empleado }}</td>
+              <td>{{ empleado.sexo_empleado }}</td>
+              <td>
+                $ {{ '{:,.0f}'.format(empleado.salario_empleado).replace(',',
+                '.')}}
+              </td>
+              <td>
+                <a
+                  href="/detalles-empleado/{{ empleado.id_empleado }}"
+                  title="Ver envio"
+                  type="button"
+                  class="btn btn-info btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-offset="0,4"
+                  data-bs-placement="top"
+                  data-bs-html="true"
+                  title="<span>Ver detalles</span>">
+                  <i class="bi bi-eye"></i>
+                  Ver detalles
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
