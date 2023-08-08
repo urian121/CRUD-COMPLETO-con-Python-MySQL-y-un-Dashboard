@@ -52,3 +52,18 @@ def lista_empleados():
     else:
         flash('primero debes iniciar sesión.', 'error')
         return redirect(url_for('inicioCpanel'))
+
+
+@app.route("/detalles-empleado/", methods=['GET'])
+@app.route("/detalles-empleado/<int:idEmpleado>", methods=['GET'])
+def detalleEmpleado(idEmpleado=None):
+    if 'conectado' in session:
+        # Verificamos si el parámetro idEmpleado es None o no está presente en la URL
+        if idEmpleado is None:
+            return redirect(url_for('inicioCpanel'))
+        else:
+            detalle_empleado = sql_detalles_empleadosBD(idEmpleado) or []
+            return render_template(f'{PATH_URL}/empleados/detalles_empleado.html', detalle_empleado=detalle_empleado)
+    else:
+        flash('Primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicioCpanel'))

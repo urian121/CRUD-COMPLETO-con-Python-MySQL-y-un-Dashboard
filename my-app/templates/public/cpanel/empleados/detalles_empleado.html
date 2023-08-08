@@ -1,0 +1,115 @@
+{% extends 'public/cpanel/base_cpanel.html' %}
+<!--Cambiando el title-->
+{% block title %}Crud | Registrar Empleado{% endblock %}
+<!---->
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename ='assets/css/file.css') }}" />
+{% endblock %}
+
+<!--Inicio del block-->
+{% block body %}
+<!---->
+{% if (detalle_empleado|length) %}
+<div class="card" style="border-radius: 0px !important">
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-12">
+      <h3 class="text-center mt-5 mb-3">
+        <a href="/lista-de-empleados"
+          ><i class="bi bi-arrow-left-circle"></i
+        ></a>
+        INFORMACIÓN DEL EMPLEADO
+      </h3>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-2">
+    <div class="col-md-6">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="nombre_empleado" class="form-label">
+              Nombre del empleado
+            </label>
+            <br />
+            {{ detalle_empleado.nombre_empleado}}
+          </div>
+          <div class="col-md-6">
+            <label for="apellido_empleado" class="form-label">
+              Apellido del empleado
+            </label>
+            <br />
+            {{ detalle_empleado.apellido_empleado}}
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label for="sexo_empleado" class="form-label">
+              Sexo del empleado
+            </label>
+            <br />
+            {{ detalle_empleado.sexo_empleado}}
+          </div>
+          <div class="col-md-6">
+            <label for="telefono_empleado" class="form-label">
+              Telefono del empleado
+            </label>
+            <br />
+            {{ detalle_empleado.telefono_empleado}}
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label for="email_empleado" class="form-label">
+              Email del empleado
+            </label>
+            <br />
+            {{ detalle_empleado.email_empleado}}
+          </div>
+          <div class="col-md-6">
+            <label for="profesion_empleado" class="form-label">
+              Profesión del empleado
+            </label>
+            <br />
+            {{ detalle_empleado.profesion_empleado}}
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6">
+            <label for="salario_empleado" class="form-label">
+              Salario del empleado
+            </label>
+            <br />
+            $ {{
+            '{:,.0f}'.format(detalle_empleado.salario_empleado).replace(',',
+            '.')}}
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label"> IMAGEN DEL EMPLEADO </label>
+
+            <div class="avatar-upload">
+              <div class="avatar-preview">
+                <div
+                  id="imagePreview"
+                  style="
+                    background-image: url('/static/fotos_empleados/{{ detalle_empleado.foto_empleado }}');
+                  "></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<h2 class="text-center">
+  No existe el Empleado 😭
+  <hr />
+</h2>
+{% endif %} {% endblock %}

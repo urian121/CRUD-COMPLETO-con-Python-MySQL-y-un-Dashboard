@@ -2,11 +2,11 @@
 <!--Cambiando el title-->
 {% block title %}Crud | Empleados{% endblock %}
 <!--Inicio del block-->
-{% block body %} {{ empleados}}
+{% block body %}
 
 <div class="card" style="border-radius: 0px !important">
   <div class="row justify-content-center mb-2">
-    <div class="col-md-12">
+    <div class="col-md-12 mb-4">
       <h3 class="text-center mt-5 mb-3">LISTA DE EMPLEADOS</h3>
       <hr />
     </div>
@@ -31,7 +31,7 @@
           </thead>
           <tbody>
             {% for empleado in empleados %}
-            <tr>
+            <tr id="empleado_{{ empleado.id_empleado }}">
               <td>{{ loop.index }}</td>
               <td>{{ empleado.nombre_empleado }}</td>
               <td>{{ empleado.apellido_empleado }}</td>
@@ -53,6 +53,18 @@
                   title="<span>Ver detalles</span>">
                   <i class="bi bi-eye"></i>
                   Ver detalles
+                </a>
+                <a
+                  href="#"
+                  onclick="eliminarEmpleado('{{ empleado.id_empleado }}');"
+                  class="btn btn-danger btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-offset="0,4"
+                  data-bs-placement="top"
+                  data-bs-html="true"
+                  title="<span>Eliminar empleado {{ empleado.nombre_empleado }}</span>">
+                  <i class="bi bi-trash3"></i>
+                  Eliminar
                 </a>
               </td>
             </tr>

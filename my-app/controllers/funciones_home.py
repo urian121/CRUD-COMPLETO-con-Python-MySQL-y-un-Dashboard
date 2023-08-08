@@ -97,11 +97,11 @@ def sql_lista_empleadosBD():
 
 
 # Detalles del Empleado
-def sql_detalles_empleadosBD():
+def sql_detalles_empleadosBD(idEmpleado):
     try:
         with connectionBD() as conexion_MySQLdb:
             with conexion_MySQLdb.cursor(dictionary=True) as cursor:
-                querySQL = (f"""
+                querySQL = ("""
                     SELECT 
                         e.id_empleado,
                         e.nombre_empleado, 
@@ -117,10 +117,11 @@ def sql_detalles_empleadosBD():
                         e.foto_empleado,
                         DATE_FORMAT(e.fecha_registro, '%Y-%m-%d %h:%i %p') AS fecha_registro
                     FROM tbl_empleados AS e
+                    WHERE id_empleado =%s
                     ORDER BY e.id_empleado DESC
                     """)
-                cursor.execute(querySQL,)
-                empleadosBD = cursor.fetchall()
+                cursor.execute(querySQL, (idEmpleado,))
+                empleadosBD = cursor.fetchone()
         return empleadosBD
     except Exception as e:
         print(

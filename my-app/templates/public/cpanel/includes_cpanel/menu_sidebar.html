@@ -32,6 +32,13 @@
       </a>
     </li>
     <li
+      class="menu-item {% if request.path == '/reportes-empleados' %} active {% endif %}">
+      <a href="/reportes-empleados" class="menu-link">
+        <i class="menu-icon bi bi-file-earmark-spreadsheet-fill"></i>
+        <div data-i18n="Tables">Reportes</div>
+      </a>
+    </li>
+    <li
       class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
       <a href="/mi-perfil" class="menu-link">
         <i class="menu-icon bi bi-person-fill-gear"></i>
