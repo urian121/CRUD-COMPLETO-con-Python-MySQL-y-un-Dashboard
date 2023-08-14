@@ -104,7 +104,7 @@ def procesar_update_perfil(data_form):
                                 return cursor.rowcount or []
                             except Exception as e:
                                 print(
-                                    f"Ocurrió un error al actualizar el perfil: {e}")
+                                    f"Ocurrió en procesar_update_perfil: {e}")
                                 return []
             else:
                 return 0
@@ -125,8 +125,7 @@ def updatePefilSinPass(id_user, name_surname):
                 conexion_MySQLdb.commit()
         return cursor.rowcount
     except Exception as e:
-        print(
-            f"Ocurrió un error en la funcion updatePefilSinPass: {e}")
+        print(f"Ocurrió un error en la funcion updatePefilSinPass: {e}")
         return []
 
 

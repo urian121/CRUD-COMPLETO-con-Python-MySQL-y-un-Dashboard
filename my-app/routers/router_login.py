@@ -10,41 +10,41 @@ from werkzeug.security import check_password_hash
 
 # Importando controllers para el modulo de login
 from controllers.funciones_login import *
+PATH_URL_LOGIN = "public/login"
 
 
 @app.route('/', methods=['GET'])
-def inicioCpanel():
+def inicio():
     if 'conectado' in session:
-        return render_template('public/cpanel/base_cpanel.html', dataLogin=dataLoginSesion())
+        return render_template('public/base_cpanel.html', dataLogin=dataLoginSesion())
     else:
-        return render_template('public/login/base_login.html')
+        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 
 @app.route('/mi-perfil', methods=['GET'])
 def perfil():
     if 'conectado' in session:
-        print('aqui')
-        return render_template('public/cpanel/perfil/perfil.html', info_perfil_session=info_perfil_session())
+        return render_template(f'public/perfil/perfil.html', info_perfil_session=info_perfil_session())
     else:
-        return render_template('public/login/base_login.html')
+        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 
 # Crear cuenta de usuario
 @app.route('/register-user', methods=['GET'])
 def cpanelRegisterUser():
     if 'conectado' in session:
-        return redirect(url_for('inicioCpanel'))
+        return redirect(url_for('inicio'))
     else:
-        return render_template('public/login/auth_register.html')
+        return render_template(f'{PATH_URL_LOGIN}/auth_register.html')
 
 
 # Recuperar cuenta de usuario
 @app.route('/recovery-password', methods=['GET'])
 def cpanelRecoveryPassUser():
     if 'conectado' in session:
-        return redirect(url_for('inicioCpanel'))
+        return redirect(url_for('inicio'))
     else:
-        return render_template('public/login/auth_forgot_password.html')
+        return render_template(f'{PATH_URL_LOGIN}/auth_forgot_password.html')
 
 
 # Crear cuenta de usuario
@@ -60,13 +60,13 @@ def cpanelResgisterUserBD():
             name_surname, email_user, pass_user)
         if (resultData != 0):
             flash('la cuenta fue creada correctamente.', 'success')
-            return render_template('public/login/base_login.html')
+            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
         else:
             flash('el registro no fue procesado, por favor verifique.', 'error')
-            return render_template('public/login/base_login.html')
+            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
     else:
         flash('el método HTTP es incorrecto', 'error')
-        return render_template('public/login/base_login.html')
+        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 
 # Actualizar datos de mi perfil
@@ -74,10 +74,9 @@ def cpanelResgisterUserBD():
 def actualizarPerfil():
     if 'conectado' in session:
         respuesta = procesar_update_perfil(request.form)
-        print(respuesta)
         if respuesta == 1:
             flash('Los datos fuerón actualizados correctamente.', 'success')
-            return redirect(url_for('inicioCpanel'))
+            return redirect(url_for('inicio'))
         elif respuesta == 0:
             flash('La contraseña actual esta incorrecta, por favor verifique.', 'error')
             return redirect(url_for('perfil'))
@@ -89,14 +88,14 @@ def actualizarPerfil():
             return redirect(url_for('perfil'))
     else:
         flash('primero debes iniciar sesión.', 'error')
-        return render_template('public/login/base_login.html')
+        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 
 # Validar sesión
 @app.route('/login', methods=['GET', 'POST'])
 def loginCliente():
     if 'conectado' in session:
-        return redirect(url_for('inicioCpanel'))
+        return redirect(url_for('inicio'))
     else:
         if request.method == 'POST' and 'email_user' in request.form and 'pass_user' in request.form:
 
@@ -119,17 +118,17 @@ def loginCliente():
                     session['email_user'] = account['email_user']
 
                     flash('la sesión fue correcta.', 'success')
-                    return redirect(url_for('inicioCpanel'))
+                    return redirect(url_for('inicio'))
                 else:
                     # La cuenta no existe o el nombre de usuario/contraseña es incorrecto
                     flash('datos incorrectos por favor revise.', 'error')
-                    return render_template('public/login/base_login.html')
+                    return render_template(f'{PATH_URL_LOGIN}/base_login.html')
             else:
                 flash('el usuario no existe, por favor verifique.', 'error')
-                return render_template('public/login/base_login.html')
+                return render_template(f'{PATH_URL_LOGIN}/base_login.html')
         else:
             flash('primero debes iniciar sesión.', 'error')
-            return render_template('public/login/base_login.html')
+            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
 
 
 @app.route('/closed-session',  methods=['GET'])
@@ -142,7 +141,7 @@ def cerraSesion():
             session.pop('name_surname', None)
             session.pop('email', None)
             flash('tu sesión fue cerrada correctamente.', 'success')
-            return render_template('public/login/base_login.html')
+            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
         else:
             flash('recuerde debe iniciar sesión.', 'error')
-            return render_template('public/login/base_login.html')
+            return render_template(f'{PATH_URL_LOGIN}/base_login.html')

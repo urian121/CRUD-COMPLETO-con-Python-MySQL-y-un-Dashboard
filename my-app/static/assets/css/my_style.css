@@ -229,3 +229,8 @@ tbody tr:hover {
   cursor: pointer;
   border-bottom: dotted 1px #08b324;
 }
+
+#search {
+  min-width: 44% !important;
+  background-color: #f3efef !important;
+}

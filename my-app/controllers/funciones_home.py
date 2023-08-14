@@ -214,3 +214,31 @@ def generarReporteExcel():
 
     # Enviar el archivo como respuesta HTTP
     return send_file(ruta_archivo, as_attachment=True)
+
+
+def buscarEmpleadoBD(search):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as mycursor:
+                querySQL = ("""
+                        SELECT 
+                            e.id_empleado,
+                            e.nombre_empleado, 
+                            e.apellido_empleado,
+                            e.salario_empleado,
+                            CASE
+                                WHEN e.sexo_empleado = 1 THEN 'Masculino'
+                                ELSE 'Femenino'
+                            END AS sexo_empleado
+                        FROM tbl_empleados AS e
+                        WHERE e.nombre_empleado LIKE %s 
+                        ORDER BY e.id_empleado DESC
+                    """)
+                search_pattern = f"%{search}%"  # Agregar "%" alrededor del término de búsqueda
+                mycursor.execute(querySQL, (search_pattern,))
+                resultado_busqueda = mycursor.fetchall()
+                return resultado_busqueda
+
+    except Exception as e:
+        print(f"Ocurrió un error en def buscarEmpleadoBD: {e}")
+        return []
