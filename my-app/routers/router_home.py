@@ -67,3 +67,12 @@ def detalleEmpleado(idEmpleado=None):
     else:
         flash('Primero debes iniciar sesión.', 'error')
         return redirect(url_for('inicioCpanel'))
+
+
+@app.route("/descargar-informe-empleados/", methods=['GET'])
+def reporteBD():
+    if 'conectado' in session:
+        return generarReporteExcel()
+    else:
+        flash('primero debes iniciar sesión.', 'error')
+        return redirect(url_for('inicioCpanel'))
