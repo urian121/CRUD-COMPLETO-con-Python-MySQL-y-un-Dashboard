@@ -1,32 +1,45 @@
-# PASO 1, Crear mi entorno virtual
+### Construyendo un CRUD Dinámico con Python 🐍 MySQL 💾 y un Dashboard Asombroso 🚀
 
-`virtualenv env `
+###### Aprende a desarrollar un sistema CRUD utilizando Python 🐍 y MySQL 💾 mientras creas un impresionante panel de control. Este curso te guiará a través de la creación de aplicaciones interactivas y eficientes, permitiéndote gestionar datos con facilidad.
 
-# PASO 2, Activar el entorno virtual ejecutando;
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/Dashboard-python-login-urian-viera.png)
 
-`. env/Scripts/activate`
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashboard-python-crear-user-urian-viera.png)
 
-# PASO 3, Ya dentro del entorno virtual instalar flask
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashboard-python-recuperar-clave-urian-viera.png)
 
-`pip install flask`
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashborad-python-home-urian-viera.png)
 
-# PASO 4, Instalar Python MySQL Connector, es una bibliote (Driver) para conectar Python con MySQL
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashboard-python-registrar-cliente-urian-viera.png)
 
-`pip install mysql-connector-python`
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashboard-python-lista-empleados-urian-viera.png)
 
-# Paquete para generar reporte en excel
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashboard-python-editar-perfil-urian-viera.png)
 
-`pip install pandas`
-`pip install openpyxl`
+![](https://raw.githubusercontent.com/urian121/imagenes-proyectos-github/master/dashboard-python-reporte-empleados-urian-viera.png)
 
-# Crear/Actualizar el fichero requirements.txt:
+### Requerimientos 📋
 
-`pip freeze > requirements.txt`
+    Servidor Web (Apache)
+    MySQL 5 o superior
+    phpMyAdmin (opcional)
+    Puedes usar un todo en uno como XAMPP, WAMPP u otro.
 
-# (env)$ deactivate Para desactivar nuestro entono virtual
+### Instrucciones para descarga 🔧
 
-# IMPORTANTE, para correr el proyecto solo debes ejecutar el archivo
+    Descarga el proyecto
+    Importa el archivo crud_python.sql a MySQL
+    Cambia los datos de conexión en el archivo conexionBD.py
+    Crea el entono virtual (opcional)  `virtualenv env`
+    Activas tu entorno virtual . env/Scripts/activate`
+    Ejecutas el archivo `pip install -r requirements.txt` para instalar todos paquetes o   dependencias del proyecto.
+    Ingresa desde un navegador a http://127.0.0.1:5600/
 
-# requirements.txt con el comando;
+### Expresiones de Gratitud 🎁
 
-`pip install -r requirements.txt`
+    Comenta a otros sobre este proyecto 📢
+    Invita una cerveza 🍺 o un café ☕
+    Paypal iamdeveloper86@gmail.com
+    Da las gracias públicamente 🤓.
+
+## No olvides SUSCRIBIRTE 👍
