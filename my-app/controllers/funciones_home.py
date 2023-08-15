@@ -14,8 +14,6 @@ from flask import send_file
 
 
 def procesar_form_empleado(dataForm, foto_perfil):
-    # Procesamos la imagen
-
     # Formateando Salario
     salario_sin_puntos = re.sub('[^0-9]+', '', dataForm['salario_empleado'])
     # convertir salario a INT
@@ -38,7 +36,7 @@ def procesar_form_empleado(dataForm, foto_perfil):
                 return resultado_insert
 
     except Exception as e:
-        return f'Se produjo un error en guardar_imagenesBD: {str(e)}'
+        return f'Se produjo un error en procesar_form_empleado: {str(e)}'
 
 
 def procesar_imagen_perfil(foto):

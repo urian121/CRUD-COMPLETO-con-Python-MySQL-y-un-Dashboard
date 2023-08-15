@@ -21,8 +21,9 @@
         <div class="layout-page">
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
-              {% include 'public/includes/message_cpanel.html' %} {% block body
-              %}
+              {% include 'public/includes/message_cpanel.html' %}
+              <!---->
+              {% block body %}
               <!--fin del bloque-->
               {% endblock %}
             </div>
@@ -38,6 +39,5 @@
     {% include 'public/includes/js.html' %}
     <!--Custom JS-->
     {% block customJS %} {% endblock %}
-    <!-- fin de mi custom JS-->
   </body>
 </html>

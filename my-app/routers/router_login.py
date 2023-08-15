@@ -26,7 +26,7 @@ def perfil():
     if 'conectado' in session:
         return render_template(f'public/perfil/perfil.html', info_perfil_session=info_perfil_session())
     else:
-        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+        return redirect(url_for('inicio'))
 
 
 # Crear cuenta de usuario
@@ -52,7 +52,6 @@ def cpanelRecoveryPassUser():
 def cpanelResgisterUserBD():
     if request.method == 'POST' and 'name_surname' in request.form and 'pass_user' in request.form:
         name_surname = request.form['name_surname']
-        # name_surname = request.form.get()'name_surname')
         email_user = request.form['email_user']
         pass_user = request.form['pass_user']
 
@@ -60,35 +59,39 @@ def cpanelResgisterUserBD():
             name_surname, email_user, pass_user)
         if (resultData != 0):
             flash('la cuenta fue creada correctamente.', 'success')
-            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+            return redirect(url_for('inicio'))
         else:
-            flash('el registro no fue procesado, por favor verifique.', 'error')
-            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+            return redirect(url_for('inicio'))
     else:
         flash('el método HTTP es incorrecto', 'error')
-        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+        return redirect(url_for('inicio'))
 
 
 # Actualizar datos de mi perfil
 @app.route("/actualizar-datos-perfil", methods=['POST'])
 def actualizarPerfil():
-    if 'conectado' in session:
-        respuesta = procesar_update_perfil(request.form)
-        if respuesta == 1:
-            flash('Los datos fuerón actualizados correctamente.', 'success')
+    if request.method == 'POST':
+        if 'conectado' in session:
+            respuesta = procesar_update_perfil(request.form)
+            if respuesta == 1:
+                flash('Los datos fuerón actualizados correctamente.', 'success')
+                return redirect(url_for('inicio'))
+            elif respuesta == 0:
+                flash(
+                    'La contraseña actual esta incorrecta, por favor verifique.', 'error')
+                return redirect(url_for('perfil'))
+            elif respuesta == 2:
+                flash('Ambas claves deben se igual, por favor verifique.', 'error')
+                return redirect(url_for('perfil'))
+            elif respuesta == 3:
+                flash('La Clave actual es obligatoria.', 'error')
+                return redirect(url_for('perfil'))
+        else:
+            flash('primero debes iniciar sesión.', 'error')
             return redirect(url_for('inicio'))
-        elif respuesta == 0:
-            flash('La contraseña actual esta incorrecta, por favor verifique.', 'error')
-            return redirect(url_for('perfil'))
-        elif respuesta == 2:
-            flash('Ambas claves deben se igual, por favor verifique.', 'error')
-            return redirect(url_for('perfil'))
-        elif respuesta == 3:
-            flash('La Clave actual es obligatoria.', 'error')
-            return redirect(url_for('perfil'))
     else:
         flash('primero debes iniciar sesión.', 'error')
-        return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+        return redirect(url_for('inicio'))
 
 
 # Validar sesión

@@ -1,8 +1,9 @@
-
+# Importandopaquetes desde flask
 from flask import session, flash
 
+# Importando conexion a BD
 from conexion.conexionBD import connectionBD
-# Para encriptar contraseña generate_password_hash
+# Para  validar contraseña
 from werkzeug.security import check_password_hash
 
 import re
@@ -11,38 +12,51 @@ from werkzeug.security import generate_password_hash
 
 
 def recibeInsertRegisterUser(name_surname, email_user, pass_user):
-    conexion_MySQLdb = connectionBD()
-    cursor = conexion_MySQLdb.cursor(dictionary=True)
+    respuestaValidar = validarDataRegisterLogin(
+        name_surname, email_user, pass_user)
 
-    # Comprobando si existe una cuenta
-    cursor.execute("SELECT * FROM users WHERE email_user = %s", (email_user,))
-    result = cursor.fetchone()  # Obtener la primera fila de resultados
-    cursor.close()  # cerrando conexión SQL
-
-    if result is not None:
-        flash('ya existe la cuenta', 'error')
-    elif not re.match(r'[^@]+@[^@]+\.[^@]+', email_user):
-        flash('correo invalido', 'error')
-    elif not name_surname or not email_user or not pass_user:
-        flash('por favor llene los campos del formulario.', 'error')
-    else:
-        # La cuenta no existe y los datos del formulario son válidos,
-        # ahora inserte una nueva cuenta en la tabla de cuentas
+    if (respuestaValidar):
         nueva_password = generate_password_hash(pass_user, method='scrypt')
+        try:
+            with connectionBD() as conexion_MySQLdb:
+                with conexion_MySQLdb.cursor(dictionary=True) as mycursor:
+                    sql = "INSERT INTO users(name_surname, email_user, pass_user) VALUES (%s, %s, %s)"
+                    valores = (name_surname, email_user, nueva_password)
+                    mycursor.execute(sql, valores)
+                    conexion_MySQLdb.commit()
+                    resultado_insert = mycursor.rowcount
+                    return resultado_insert
+        except Exception as e:
+            print(f"Error en el Insert users: {e}")
+            return []
+    else:
+        return False
 
-        conexion_MySQLdb = connectionBD()
-        cursor = conexion_MySQLdb.cursor(dictionary=True)
-        sql = (
-            "INSERT INTO users(name_surname, email_user, pass_user) VALUES (%s, %s, %s)")
-        valores = (name_surname, email_user, nueva_password)
-        cursor.execute(sql, valores)
-        conexion_MySQLdb.commit()
 
-        cursor.close()  # Cerrando conexion SQL
-        conexion_MySQLdb.close()  # cerrando conexion de la BD
+# Validando la data del Registros para el login
+def validarDataRegisterLogin(name_surname, email_user, pass_user):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                querySQL = "SELECT * FROM users WHERE email_user = %s"
+                cursor.execute(querySQL, (email_user,))
+                userBD = cursor.fetchone()  # Obtener la primera fila de resultados
 
-        resultado_insert = cursor.rowcount  # retorna 1 o 0
-    return resultado_insert
+                if userBD is not None:
+                    flash('el registro no fue procesado ya existe la cuenta', 'error')
+                    return False
+                elif not re.match(r'[^@]+@[^@]+\.[^@]+', email_user):
+                    flash('el Correo es invalido', 'error')
+                    return False
+                elif not name_surname or not email_user or not pass_user:
+                    flash('por favor llene los campos del formulario.', 'error')
+                    return False
+                else:
+                    # La cuenta no existe y los datos del formulario son válidos, puedo realizar el Insert
+                    return True
+    except Exception as e:
+        print(f"Error en validarDataRegisterLogin : {e}")
+        return []
 
 
 def info_perfil_session():
@@ -79,7 +93,6 @@ def procesar_update_perfil(data_form):
                 if check_password_hash(account['pass_user'], pass_actual):
                     # Verificar si new_pass_user y repetir_pass_user están vacías
                     if not new_pass_user or not repetir_pass_user:
-                        # if len(new_pass_user) == 0 or len(repetir_pass_user) == 0:
                         return updatePefilSinPass(id_user, name_surname)
                     else:
                         if new_pass_user != repetir_pass_user:

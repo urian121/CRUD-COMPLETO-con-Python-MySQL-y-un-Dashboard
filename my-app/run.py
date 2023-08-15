@@ -1,17 +1,10 @@
 # Declarando nombre de la aplicación e inicializando, crear la aplicación Flask
 from app import app
 
-# Importando todos mis controllers
-# from controllers.controller_tienda import *  # Controlador Tienda
+# Importando todos mis Routers (Rutas)
 from routers.router_login import *
-
-# from controllers.controller_tienda_vpn import *
 from routers.router_home import *
-# from controllers.controller_bandeja_procesadas import *
-# from controllers.controller_resumen_consignaciones_diarias import *
-
-
-# from controllers.controller_page_not_found import *
+from routers.router_page_not_found import *
 
 
 # Ejecutando el objeto Flask
