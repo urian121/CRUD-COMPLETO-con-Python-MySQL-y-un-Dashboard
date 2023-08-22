@@ -11,7 +11,7 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>{% block Dugotex %}{% endblock %}</title>
+    <title>{% block crud %}Crud con Python 🐍 {% endblock %}</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -31,7 +31,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename ='assets/vendor/fonts/boxicons.css') }}" />
 
-    <!-- Core CSS -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename ='assets/vendor/css/core.css') }}"
@@ -41,13 +40,10 @@
       href="{{ url_for('static', filename ='assets/vendor/css/theme-default.css') }}"
       class="template-customizer-theme-css" />
 
-    <!-- Vendors CSS -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename ='assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
-    <!-- Page CSS -->
-    <!-- Page -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename ='assets/vendor/css/pages/page-auth.css') }}" />
@@ -56,7 +52,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename ='assets/css/my_style.css') }}" />
 
-    <!-- Helpers -->
     <script src="{{ url_for('static', filename ='assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ url_for('static', filename ='assets/js/config.js') }}"></script>
   </head>
@@ -68,7 +63,7 @@
       </div>
     </div>
 
-    {% include 'public/includes/message_cpanel.html' %}
+    {% include 'public/includes/messages.html' %}
     <!--cuerpo-->
     {% block body %}
 

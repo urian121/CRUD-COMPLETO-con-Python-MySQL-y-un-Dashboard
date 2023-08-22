@@ -1,6 +1,6 @@
 {% extends 'public/base_cpanel.html' %}
 <!--Cambiando el title-->
-{% block title %}Crud | Registrar Empleado{% endblock %}
+{% block title %}Crud con Python 🐍 | Registrar Empleado{% endblock %}
 <!---->
 {% block customCSS %}
 <link
@@ -16,9 +16,9 @@
   <div class="row justify-content-center mb-2">
     <div class="col-md-12">
       <h3 class="text-center mt-5 mb-3">
-        <a href="/lista-de-empleados"
-          ><i class="bi bi-arrow-left-circle"></i
-        ></a>
+        <a href="/lista-de-empleados">
+          <i class="bi bi-arrow-left-circle"></i>
+        </a>
         INFORMACIÓN DEL EMPLEADO
       </h3>
       <hr />
@@ -26,7 +26,7 @@
   </div>
 
   <div class="row justify-content-center mb-2">
-    <div class="col-md-6">
+    <div class="col-md-10">
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
@@ -91,16 +91,11 @@
           </div>
           <div class="col-md-6">
             <label for="" class="form-label"> IMAGEN DEL EMPLEADO </label>
-
-            <div class="avatar-upload">
-              <div class="avatar-preview">
-                <div
-                  id="imagePreview"
-                  style="
-                    background-image: url('/static/fotos_empleados/{{ detalle_empleado.foto_empleado }}');
-                  "></div>
-              </div>
-            </div>
+            <br />
+            <img
+              style="width: 200px"
+              src="/static/fotos_empleados/{{ detalle_empleado.foto_empleado }}"
+              alt="imagen-empleado" />
           </div>
         </div>
       </div>

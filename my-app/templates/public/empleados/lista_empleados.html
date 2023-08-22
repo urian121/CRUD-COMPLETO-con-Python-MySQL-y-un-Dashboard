@@ -1,6 +1,6 @@
 {% extends 'public/base_cpanel.html' %}
 <!--Cambiando el title-->
-{% block title %}Crud | Empleados{% endblock %}
+{% block title %}Crud con Python 🐍 | Lista de Empleados{% endblock %}
 <!--Inicio del block-->
 {% block body %}
 
@@ -51,7 +51,7 @@
                 $ {{ '{:,.0f}'.format(empleado.salario_empleado).replace(',',
                 '.')}}
               </td>
-              <td>
+              <td width="10px">
                 <a
                   href="/detalles-empleado/{{ empleado.id_empleado }}"
                   title="Ver envio"
@@ -64,6 +64,13 @@
                   title="<span>Ver detalles</span>">
                   <i class="bi bi-eye"></i>
                   Ver detalles
+                </a>
+                <a
+                  href="{{ url_for('viewEditarEmpleado', id = empleado.id_empleado) }}"
+                  class="btn btn-success btn-sm"
+                  tooltip="Actualizar Registro">
+                  <i class="bi bi-arrow-clockwise"></i>
+                  Actualizar
                 </a>
                 <a
                   href="#"

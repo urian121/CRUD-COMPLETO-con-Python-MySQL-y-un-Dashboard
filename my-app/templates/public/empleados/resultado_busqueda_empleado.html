@@ -20,6 +20,13 @@
       Ver detalles
     </a>
     <a
+      href="{{ url_for('viewEditarEmpleado', id = empleado.id_empleado) }}"
+      class="btn btn-success btn-sm"
+      tooltip="Actualizar Registro">
+      <i class="bi bi-arrow-clockwise"></i>
+      Actualizar
+    </a>
+    <a
       href="#"
       onclick="eliminarEmpleado('{{ empleado.id_empleado }}');"
       class="btn btn-danger btn-sm"

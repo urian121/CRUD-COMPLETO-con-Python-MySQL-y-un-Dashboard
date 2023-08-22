@@ -240,3 +240,123 @@ def buscarEmpleadoBD(search):
     except Exception as e:
         print(f"Ocurrió un error en def buscarEmpleadoBD: {e}")
         return []
+
+
+def buscarEmpleadoUnico(id):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as mycursor:
+                querySQL = ("""
+                        SELECT 
+                            e.id_empleado,
+                            e.nombre_empleado, 
+                            e.apellido_empleado,
+                            e.sexo_empleado,
+                            e.telefono_empleado,
+                            e.email_empleado,
+                            e.profesion_empleado,
+                            e.salario_empleado,
+                            e.foto_empleado
+                        FROM tbl_empleados AS e
+                        WHERE e.id_empleado =%s LIMIT 1
+                    """)
+                mycursor.execute(querySQL, (id,))
+                empleado = mycursor.fetchone()
+                return empleado
+
+    except Exception as e:
+        print(f"Ocurrió un error en def buscarEmpleadoUnico: {e}")
+        return []
+
+
+def procesar_actualizacion_form(data):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                nombre_empleado = data.form['nombre_empleado']
+                apellido_empleado = data.form['apellido_empleado']
+                sexo_empleado = data.form['sexo_empleado']
+                telefono_empleado = data.form['telefono_empleado']
+                email_empleado = data.form['email_empleado']
+                profesion_empleado = data.form['profesion_empleado']
+
+                salario_sin_puntos = re.sub(
+                    '[^0-9]+', '', data.form['salario_empleado'])
+                salario_empleado = int(salario_sin_puntos)
+                id_empleado = data.form['id_empleado']
+
+                if data.files['foto_empleado']:
+                    file = data.files['foto_empleado']
+                    fotoForm = procesar_imagen_perfil(file)
+
+                    querySQL = """
+                        UPDATE tbl_empleados
+                        SET 
+                            nombre_empleado = %s,
+                            apellido_empleado = %s,
+                            sexo_empleado = %s,
+                            telefono_empleado = %s,
+                            email_empleado = %s,
+                            profesion_empleado = %s,
+                            salario_empleado = %s,
+                            foto_empleado = %s
+                        WHERE id_empleado = %s
+                    """
+                    values = (nombre_empleado, apellido_empleado, sexo_empleado,
+                              telefono_empleado, email_empleado, profesion_empleado,
+                              salario_empleado, fotoForm, id_empleado)
+                else:
+                    querySQL = """
+                        UPDATE tbl_empleados
+                        SET 
+                            nombre_empleado = %s,
+                            apellido_empleado = %s,
+                            sexo_empleado = %s,
+                            telefono_empleado = %s,
+                            email_empleado = %s,
+                            profesion_empleado = %s,
+                            salario_empleado = %s
+                        WHERE id_empleado = %s
+                    """
+                    values = (nombre_empleado, apellido_empleado, sexo_empleado,
+                              telefono_empleado, email_empleado, profesion_empleado,
+                              salario_empleado, id_empleado)
+
+                cursor.execute(querySQL, values)
+                conexion_MySQLdb.commit()
+
+        return cursor.rowcount or []
+    except Exception as e:
+        print(f"Ocurrió un error en procesar_actualizacion_form: {e}")
+        return None
+
+
+# Lista de Usuarios creados
+def lista_usuariosBD():
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                querySQL = "SELECT id, name_surname, email_user, created_user FROM users"
+                cursor.execute(querySQL,)
+                usuariosBD = cursor.fetchall()
+        return usuariosBD
+    except Exception as e:
+        print(f"Error en lista_usuariosBD : {e}")
+        return []
+
+# Eliminar usuario
+
+
+def eliminarUsuario(id):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                querySQL = "DELETE FROM users WHERE id=%s"
+                cursor.execute(querySQL, (id,))
+                conexion_MySQLdb.commit()
+                resultado_eliminar = cursor.rowcount
+
+        return resultado_eliminar
+    except Exception as e:
+        print(f"Error en eliminarUsuario : {e}")
+        return []

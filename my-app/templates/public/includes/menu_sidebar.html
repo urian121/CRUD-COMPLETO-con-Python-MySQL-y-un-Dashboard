@@ -39,6 +39,13 @@
       </a>
     </li>
     <li
+      class="menu-item {% if request.path == '/lista-de-usuarios' %} active {% endif %}">
+      <a href="/lista-de-usuarios" class="menu-link">
+        <i class="menu-icon bi bi-person-lines-fill"></i>
+        <div data-i18n="Tables">Lista de Usuarios</div>
+      </a>
+    </li>
+    <li
       class="menu-item {% if request.path == '/mi-perfil' %} active {% endif %}">
       <a href="/mi-perfil" class="menu-link">
         <i class="menu-icon bi bi-person-fill-gear"></i>

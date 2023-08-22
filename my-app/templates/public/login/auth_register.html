@@ -1,5 +1,8 @@
-{% extends 'public/login/base_login.html' %} {% block title %}Dugotex | crear
-cuenta{% endblock %} {% block body %}
+{% extends 'public/login/base_login.html' %}
+<!---->
+{% block title %}Crud con Python 🐍 | crear cuenta{% endblock %}
+<!---->
+{% block body %}
 
 <div class="container-xxl">
   <div class="authentication-wrapper authentication-basic container-p-y">
@@ -7,14 +10,12 @@ cuenta{% endblock %} {% block body %}
       <div class="card">
         <div class="card-body">
           <div class="app-brand justify-content-center">
-            <a href="../" class="app-brand-link gap-2">
-              <span class="app-brand-logo">
-                <img
-                  class="logo"
-                  src="{{ url_for('static', filename ='assets/img/logo.png') }}"
-                  alt="Logo" />
-              </span>
-            </a>
+            <span class="app-brand-logo">
+              <img
+                class="logo"
+                src="{{ url_for('static', filename ='assets/img/logo.png') }}"
+                alt="Logo" />
+            </span>
           </div>
 
           <form

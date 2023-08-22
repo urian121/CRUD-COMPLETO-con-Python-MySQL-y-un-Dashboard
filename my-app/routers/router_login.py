@@ -144,7 +144,7 @@ def cerraSesion():
             session.pop('name_surname', None)
             session.pop('email', None)
             flash('tu sesión fue cerrada correctamente.', 'success')
-            return render_template(f'{PATH_URL_LOGIN}/base_login.html')
+            return redirect(url_for('inicio'))
         else:
             flash('recuerde debe iniciar sesión.', 'error')
             return render_template(f'{PATH_URL_LOGIN}/base_login.html')
