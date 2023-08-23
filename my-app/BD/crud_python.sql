@@ -35,10 +35,7 @@ CREATE TABLE IF NOT EXISTS `tbl_empleados` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Volcando datos para la tabla crud_python.tbl_empleados: ~3 rows (aproximadamente)
-INSERT INTO `tbl_empleados` (`id_empleado`, `nombre_empleado`, `apellido_empleado`, `sexo_empleado`, `telefono_empleado`, `email_empleado`, `profesion_empleado`, `foto_empleado`, `salario_empleado`, `fecha_registro`) VALUES
-	(1, 'urian', 'viera', 1, '32423432', 'urian@gmail.com', 'Ing', 'b144e61f05d24aa092f9d016465bd16ee18ac1b3d6df4fe3affcadcba22becd7.jpeg', 1, '2023-08-02 20:09:25'),
-	(2, 'Uriany', 'Viera', 1, '434234', 'uriany@gmail.com', 'Ing', '719b21f6abcd4a4380da8596337bd0f91d34adb23d6f422daea391bc3d4f5079.png', 2543000, '2023-08-02 21:26:51'),
-	(3, 'Josefina', 'Viera', 2, '4324', 'j@gmail.com', 'Doctora', 'bb48abdbddbf4ac1a27ad92f3c501a2c47dde60bd35b41b78e969965c6dbdd18.png', 34567657, '2023-08-02 21:45:33');
+INSERT INTO `tbl_empleados` VALUES (4,'Urian','Viera',1,'54544454','programadorphp2017@gmail.com','Ingeniero de Sistemas','fda30f83ebbc4fb1a2ce2609b2b1e34c6614c1dff6e44460b9ba27ed5bb8e927.png',3500000,'2023-08-23 17:04:49'),(5,'Brenda','Viera',2,'323543543','brenda@gmail.com','Dev','22c055aeec314572a0046ec50b84f21719270dac6ea34c91b8380ac289fff9e5.png',1200000,'2023-08-23 17:05:34'),(6,'Alejandro','Torres',1,'324242342','alejandro@gmail.com','Tecnico','7b84aceb56534d27aa2e8b727a245dca9f60156a070a47c491ff2d21da1742e5.png',2100,'2023-08-23 17:06:13'),(7,'Karla','Ramos',2,'345678','karla@gmail.com','Ingeniera','248cc9c38cfb494bb2300d7cbf4a3b317522f295338b4639a8e025e6b203291c.png',2300,'2023-08-23 17:07:28');
 
 -- Volcando estructura para tabla crud_python.users
 CREATE TABLE IF NOT EXISTS `users` (

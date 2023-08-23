@@ -107,9 +107,9 @@ def borrarUsuario(id):
         return redirect(url_for('usuarios'))
 
 
-@app.route('/borrar-empleado/<string:id_empleado>', methods=['GET'])
-def borrarEmpleado(id_empleado):
-    resp = eliminarEmpleado(id_empleado)
+@app.route('/borrar-empleado/<string:id_empleado>/<string:foto_empleado>', methods=['GET'])
+def borrarEmpleado(id_empleado, foto_empleado):
+    resp = eliminarEmpleado(id_empleado, foto_empleado)
     if resp:
         flash('El Empleado fue eliminado correctamente', 'success')
         return redirect(url_for('lista_empleados'))

@@ -8,6 +8,11 @@ from conexion.conexionBD import connectionBD  # Conexión a BD
 import datetime
 import re
 import os
+
+from os import remove  # Modulo  para remover archivo
+from os import path  # Modulo para obtener la ruta o directorio
+
+
 import openpyxl  # Para generar el excel
 # biblioteca o modulo send_file para forzar la descarga
 from flask import send_file
@@ -81,6 +86,7 @@ def sql_lista_empleadosBD():
                         e.nombre_empleado, 
                         e.apellido_empleado,
                         e.salario_empleado,
+                        e.foto_empleado,
                         CASE
                             WHEN e.sexo_empleado = 1 THEN 'Masculino'
                             ELSE 'Femenino'
@@ -346,7 +352,7 @@ def lista_usuariosBD():
 
 
 # Eliminar uEmpleado
-def eliminarEmpleado(id_empleado):
+def eliminarEmpleado(id_empleado, foto_empleado):
     try:
         with connectionBD() as conexion_MySQLdb:
             with conexion_MySQLdb.cursor(dictionary=True) as cursor:
@@ -354,6 +360,15 @@ def eliminarEmpleado(id_empleado):
                 cursor.execute(querySQL, (id_empleado,))
                 conexion_MySQLdb.commit()
                 resultado_eliminar = cursor.rowcount
+
+                if resultado_eliminar:
+                    # Eliminadon foto_empleado desde el directorio
+                    basepath = path.dirname(__file__)
+                    url_File = path.join(
+                        basepath, '../static/fotos_empleados', foto_empleado)
+
+                    if path.exists(url_File):
+                        remove(url_File)  # Borrar foto desde la carpeta
 
         return resultado_eliminar
     except Exception as e:
