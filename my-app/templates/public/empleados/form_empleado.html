@@ -125,11 +125,13 @@
                   <label for="imageUpload"><i class="bi bi-pen"></i></label>
                 </div>
                 <div class="avatar-preview">
-                  <div
-                    id="imagePreview"
-                    style="
-                      background-image: url(http://i.pravatar.cc/500?img=7);
-                    "></div>
+                  <div class="avatar-preview">
+                    {% set url_avatar= url_for('static', filename
+                    ='assets/img/avatar.png') %}
+                    <div
+                      id="imagePreview"
+                      style="background-image: url('{{ url_avatar }}')"></div>
+                  </div>
                 </div>
               </div>
             </div>
