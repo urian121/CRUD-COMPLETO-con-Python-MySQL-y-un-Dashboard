@@ -13,25 +13,10 @@ function fadeOut(element) {
 fadeOut(loaderOut);
 
 function eliminarEmpleado(id_empleado) {
-  if (confirm("¿Estas seguro que deseas ELIMINAR el empleado?")) {
-    let tr = document.querySelector(`#empleado_${id_empleado}`);
-
-    const urlForm = "/borrar-empleado";
-    const requestData = { id_empleado };
-
-    axios
-      .post(urlForm, requestData)
-      .then((resp) => {
-        console.log(resp.data);
-        if (resp.data === 1) {
-          tr.remove(); //remuevo el registro desde la lista
-          mensajeAlerta((msg = "Registro Eliminado con éxito."), (tipo = 1));
-        } else {
-          console.log("Error al intentar borrar el carro");
-        }
-      })
-      .catch((error) => {
-        console.error("Error en la solicitud:", error);
-      });
+  if (confirm("¿Estas seguro que deseas Eliminar el empleado?")) {
+    let url = `/borrar-empleado/${id_empleado}`;
+    if (url) {
+      window.location.href = url;
+    }
   }
 }

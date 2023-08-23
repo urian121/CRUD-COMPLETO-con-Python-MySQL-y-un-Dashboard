@@ -344,9 +344,24 @@ def lista_usuariosBD():
         print(f"Error en lista_usuariosBD : {e}")
         return []
 
+
+# Eliminar uEmpleado
+def eliminarEmpleado(id_empleado):
+    try:
+        with connectionBD() as conexion_MySQLdb:
+            with conexion_MySQLdb.cursor(dictionary=True) as cursor:
+                querySQL = "DELETE FROM tbl_empleados WHERE id_empleado=%s"
+                cursor.execute(querySQL, (id_empleado,))
+                conexion_MySQLdb.commit()
+                resultado_eliminar = cursor.rowcount
+
+        return resultado_eliminar
+    except Exception as e:
+        print(f"Error en eliminarEmpleado : {e}")
+        return []
+
+
 # Eliminar usuario
-
-
 def eliminarUsuario(id):
     try:
         with connectionBD() as conexion_MySQLdb:

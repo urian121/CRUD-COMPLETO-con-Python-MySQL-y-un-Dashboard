@@ -25,7 +25,7 @@ def formEmpleado():
             foto_perfil = request.files['foto_empleado']
             resultado = procesar_form_empleado(request.form, foto_perfil)
             if resultado:
-                return render_template(f'{PATH_URL}/form_empleado.html')
+                return redirect(url_for('lista_empleados'))
             else:
                 flash('El empleado NO fue registrado.', 'error')
                 return render_template(f'{PATH_URL}/form_empleado.html')
@@ -105,6 +105,14 @@ def borrarUsuario(id):
     if resp:
         flash('El Usuario fue eliminado correctamente', 'success')
         return redirect(url_for('usuarios'))
+
+
+@app.route('/borrar-empleado/<string:id_empleado>', methods=['GET'])
+def borrarEmpleado(id_empleado):
+    resp = eliminarEmpleado(id_empleado)
+    if resp:
+        flash('El Empleado fue eliminado correctamente', 'success')
+        return redirect(url_for('lista_empleados'))
 
 
 @app.route("/descargar-informe-empleados/", methods=['GET'])
